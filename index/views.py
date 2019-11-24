@@ -60,7 +60,7 @@ def index(request):
         user = request.user
         if user.is_authenticated:
             context.update({
-                "parts": Part.objects.all(),
+                "parts": Part.objects.get_query_set(user),
             })
         return render(request, template, context)
 
@@ -112,7 +112,7 @@ def search(request):
             })
         else:
             context.update({
-                "parts": Part.objects.all(),
+                "parts": Part.objects.get_query_set(request.user),
             })
         return render(request, template, context)
     else:
@@ -137,7 +137,7 @@ def new(request):
                 "errors": form.errors.items(),
             })
         context.update({
-            "parts": Part.objects.all(),
+            "parts": Part.objects.get_query_set(request.user),
         })
         return render(request, template, context)
     else:
@@ -170,7 +170,7 @@ def plus(request):
             })
         else:
             context.update({
-                "parts": Part.objects.all(),
+                "parts": Part.objects.get_query_set(request.user),
             })
         return render(request, template, context)
     else:
@@ -209,7 +209,7 @@ def minus(request):
             })
         else:
             context.update({
-                "parts": Part.objects.all(),
+                "parts": Part.objects.get_query_set(request.user),
             })
         return render(request, template, context)
     else:
@@ -255,7 +255,7 @@ def edit(request):
             })
         else:
             context.update({
-                "parts": Part.objects.all(),
+                "parts": Part.objects.get_query_set(request.user),
             })
         return render(request, template, context)
     else:
@@ -287,7 +287,7 @@ def delete(request):
             })
         else:
             context.update({
-                "parts": Part.objects.all(),
+                "parts": Part.objects.get_query_set(request.user),
             })
         return render(request, template, context)
     else:
@@ -324,7 +324,7 @@ def upload(request):
         if user.is_authenticated:
             context.update({
                 "message": message,
-                "parts": Part.objects.all(),
+                "parts": Part.objects.get_query_set(request.user),
             })
         return render(request, template, context)
     else:
